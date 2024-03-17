@@ -19,10 +19,10 @@ MonoBehaviour:
 
     Notre-Dame Cipher made by Konoko
 
-    TP gameplay and autosolver by Danny7007, slightly modified by Konoko
+    TP gameplay and autosolver by TandyCakes, slightly modified by Konoko
 
 
     In case of any bug, please contact me on the KTaNE Discord.'
-  version: 1.4.1
+  version: 1.4.2
   outputFolder: build
   previewImage: {fileID: 2800000, guid: f295068141520174c929c314206e8b05, type: 3}

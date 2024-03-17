@@ -592,7 +592,7 @@ using System.Text;
             "GATES",
             "SLAVE",
             "LYCOS",
-            "ZDNET",
+            "ZEBRA",
             "HAVEN",
             "CHARM",
             "BASIN",
