@@ -23,6 +23,6 @@ MonoBehaviour:
 
 
     In case of any bug, please contact me on the KTaNE Discord.'
-  version: 1.4.2
+  version: 2
   outputFolder: build
   previewImage: {fileID: 2800000, guid: f295068141520174c929c314206e8b05, type: 3}
