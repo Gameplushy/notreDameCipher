@@ -24,6 +24,8 @@ public class notreDameCipherScript : ModuleScript
     private string startingWord, endingWord, lettersToPress;
     private int answerStep = 0;
 
+    private bool isUserInputPossible = true;
+
     private void Start()
     {
         Modes[0].SetActive(true);
@@ -42,7 +44,7 @@ public class notreDameCipherScript : ModuleScript
         Arrows.Assign(onInteract: SwapPage);
         Buttons.Assign(onInteract: ChangePhase);
         startingWord = displayTexts[0, 1] = WordList.wl[RNG.Range(0, WordList.wl.Length)];
-        endingWord = displayTexts[0, 3] = WordList.wl[RNG.Range(0, WordList.wl.Length)];
+        endingWord = displayTexts[0, 3] = WordList.qlessList[RNG.Range(0, WordList.qlessList.Length)];
         lettersToPress = new string(endingWord.Distinct().ToArray());
         ShowPage();
         InitiateMatrix();
@@ -66,10 +68,13 @@ public class notreDameCipherScript : ModuleScript
 
     private void SwapPage(int i)
     {
+        if (!isUserInputPossible) return;
+        isUserInputPossible = false;
         ButtonEffect(Arrows[i], 1, KMSoundOverride.SoundEffect.ButtonPress);
         if (i == 0) i = -1;
         page = (page + i % 4 + 4) % 4;
         ShowPage();
+        isUserInputPossible = true;
     }
 
     private void ShowPage()
@@ -80,6 +85,8 @@ public class notreDameCipherScript : ModuleScript
 
     private void ChangePhase(int i)
     {
+        if (!isUserInputPossible) return;
+        isUserInputPossible = false;
         ButtonEffect(Buttons[i], 1, KMSoundOverride.SoundEffect.ButtonPress);
         if (IsSolved) return;
         if (i == 1)
@@ -89,6 +96,7 @@ public class notreDameCipherScript : ModuleScript
         }
         foreach (GameObject mode in Modes)
             mode.SetActive(!mode.activeSelf);
+        isUserInputPossible = true;
     }
 
     private void InitiateMatrix()
@@ -194,6 +202,8 @@ public class notreDameCipherScript : ModuleScript
 
     private void SubmitAttempt(int i)
     {
+        if (!isUserInputPossible) return;
+        isUserInputPossible = false;
         ButtonEffect(AnswerButtons[i], 1, KMSoundOverride.SoundEffect.ButtonPress);
         if (!IsSolved)
         {
@@ -212,10 +222,13 @@ public class notreDameCipherScript : ModuleScript
             else
             {
                 Strike("You pressed {0} when {1} was expected... Strike!".Form(matrix[i / 5, i % 5], lettersToPress[answerStep]));
-                PlaySound("Strike");
+                if (RNG.Range(1, 100) == 47)
+                    PlaySound("Jiafei");
+                else
+                    PlaySound("Strike");
             }
         }
-
+        isUserInputPossible = true;
     }
 
     private void ChangeAllSubmissionTiles(int i)

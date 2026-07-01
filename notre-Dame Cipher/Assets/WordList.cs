@@ -1,4 +1,6 @@
-﻿static class WordList
+﻿using System.Linq;
+
+static class WordList
 {
     public static string[] wl = new string[]
     {
@@ -11344,4 +11346,6 @@
 "ZURICH",
 "ZYGOTE"
     };
+
+    public static string[] qlessList = wl.Where(w => !w.Contains("Q")).ToArray();
 }
